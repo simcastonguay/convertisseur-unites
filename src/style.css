@@ -59,5 +59,17 @@ footer { border-top: 1px solid #dce2da; padding: 22px 0 28px; display: flex; jus
 footer > span:first-child { font-weight: 650; color: #345043; }
 .footer-muted { margin-left: 9px; color: #708070; font-weight: 400; }
 .loading { min-height: 300px; display: grid; place-items: center; }
+.history.MuiPaper-root { border: 1px solid #dde4db; padding: 26px 30px; border-radius: 20px; margin-top: 24px; }
+.history .section-heading { margin-bottom: 8px; }
+.history .eyebrow { margin-bottom: 8px; }
+.history-note, .history-empty { font-size: 12px; color: #64746d; line-height: 1.7; }
+.history-empty { padding: 14px 0 0; }
+.history-list { margin: 18px 0 0; padding: 0; list-style: none; }
+.history-list li { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid #e5e9e1; padding: 9px 0; font-size: 14px; }
+.history-list li > span { overflow-wrap: anywhere; }
+.history-list .MuiButton-root { flex-shrink: 0; }
+.history-source { color: #64746d; }
+.history-arrow { padding: 0 12px; color: #8c9b8b; }
+@media (max-width: 480px) { .history.MuiPaper-root { padding: 22px 18px; } .history .section-heading { align-items: flex-start; gap: 8px; } .history h2 { font-size: 17px; } .history .section-heading .MuiButton-root { font-size: 10px; max-width: 94px; } .history-list li { font-size: 12px; } .history-arrow { padding: 0 5px; } }
 @media (max-width: 850px) { .app-shell { padding: 0 24px; } .workspace { grid-template-columns: 1fr; } .side-panel { display: none; } .header-caption { display: none; } .quick-reference { grid-template-columns: repeat(3,1fr); } .quick-reference > div:first-child { grid-column: 1 / -1; } .reference-item { padding-left: 14px; } }
 @media (max-width: 480px) { .app-shell { padding: 0 16px; } .topbar { min-height: 82px; } main { padding-top: 35px; } h1 { font-size: 43px; } .converter.MuiPaper-root { padding: 23px 18px; } .section-heading h2 { font-size: 17px; } .section-heading .MuiChip-root { display: none; } .unit-selectors { grid-template-columns: 1fr; gap: 12px; } .swap-button { justify-self: center; transform: rotate(90deg); } .quick-reference { gap: 8px; } .reference-item b { font-size: 14px; } .reference-item p { font-size: 11px; } footer { flex-direction: column; gap: 8px; } .header-badge { font-size: 10px; padding: 7px 10px; } }

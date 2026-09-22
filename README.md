@@ -32,6 +32,7 @@ Ouvrir http://127.0.0.1:3001. Pour changer ce port en PowerShell : `$env:PORT = 
 - Longueurs : mètres, kilomètres, centimètres, pieds, pouces et milles.
 - Volumes : litres, millilitres, gallons américains et gallons impériaux.
 - Températures : Celsius, Fahrenheit et kelvins, avec prise en compte du décalage et rejet des valeurs sous le zéro absolu (laboratoire 3).
+- Historique local des six dernières conversions réussies, conservé après rechargement, avec reprise et effacement. Si le navigateur bloque le stockage, l'historique reste utilisable en mémoire pour la session (laboratoire 3).
 - Saisie décimale avec virgule ou point, résultat et facteur de conversion.
 - Bouton « Inverser les unités » : échange les deux unités et efface le résultat précédent, tout en conservant la valeur saisie (amélioration du laboratoire 2, étape 7).
 - Validation dans le navigateur et sur le serveur ; les erreurs sont affichées en français.
@@ -44,6 +45,7 @@ Les valeurs négatives sont acceptées pour les calculs de différences. L'affic
 - `server/conversions.js` : catalogue et calculs. Le calcul passe par l'unité de référence de la catégorie.
 - `server/app.js` : API HTTP et service des fichiers compilés ; `server/index.js` : démarrage.
 - `src/App.jsx` : interface React avec les composants Material UI.
+- `src/History.jsx` et `src/history.js` : composant réutilisable et persistance de l'historique. Les données restent dans le navigateur ; elles ne sont pas enregistrées sur le serveur.
 - `scripts/dev.js` : lancement du backend et de Vite avec une seule commande.
 - `test/` : tests du calcul et de l'API avec le test runner de Node.js.
 
