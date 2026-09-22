@@ -31,3 +31,9 @@ test('historique : élimination des entrées invalides sans perdre les entrées 
   const stored = [null, { ...entry, value: '1' }, { ...entry, to: 'l' }, { ...entry, fromSymbol: {} }, entry];
   assert.deepEqual(loadHistory({ getItem: () => JSON.stringify(stored) }), [entry]);
 });
+test('historique : une catégorie héritée ne doit pas effacer les entrées valides', () => {
+  for (const category of ['__proto__', 'constructor', 'toString']) {
+    const stored = [{ ...entry, category }, entry];
+    assert.deepEqual(loadHistory({ getItem: () => JSON.stringify(stored) }), [entry]);
+  }
+});

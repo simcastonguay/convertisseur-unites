@@ -5,6 +5,7 @@ const unitGroups = { length: ['m', 'km', 'cm', 'ft', 'in', 'mi'], volume: ['l', 
 export function isHistoryEntry(entry) {
   return Boolean(entry && typeof entry === 'object'
     && Number.isFinite(entry.value) && Number.isFinite(entry.result)
+    && typeof entry.category === 'string' && Object.hasOwn(unitGroups, entry.category)
     && unitGroups[entry.category]?.includes(entry.from) && unitGroups[entry.category]?.includes(entry.to)
     && ['fromSymbol', 'toSymbol'].every((key) => typeof entry[key] === 'string' && entry[key].length > 0 && entry[key].length <= 10));
 }
