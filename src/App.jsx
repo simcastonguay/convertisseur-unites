@@ -39,6 +39,9 @@ export default function App() {
     const next = categories.find((entry) => entry.id === id);
     setCategoryId(id); setFrom(next.units[0].id); setTo(next.units[1].id); clearResult();
   }
+  function swapUnits() {
+    setFrom(to); setTo(from); clearResult();
+  }
   async function submit(event) {
     event.preventDefault();
     const normalized = value.trim().replace(',', '.');
@@ -69,7 +72,7 @@ export default function App() {
             <div className="category-tabs" role="group" aria-label="Catégorie de conversion">{categories.map((entry) => <button key={entry.id} className={`category-tab ${categoryId === entry.id ? 'active' : ''}`} aria-pressed={categoryId === entry.id} onClick={() => chooseCategory(entry.id)}><Icon name={entry.id} size={20}/>{entry.name}</button>)}</div>
             <form onSubmit={submit} noValidate>
               <TextField label="Valeur à convertir" value={value} onChange={(event) => { setValue(event.target.value); clearResult(); }} slotProps={{ htmlInput: { inputMode: 'decimal', maxLength: 80 } }} error={Boolean(error)} helperText="Les décimales avec une virgule ou un point sont acceptées." />
-              <div className="unit-selectors"><TextField select label="De" value={from} onChange={(event) => { setFrom(event.target.value); clearResult(); }}>{category.units.map((unit) => <MenuItem key={unit.id} value={unit.id}>{unit.name} ({unit.symbol})</MenuItem>)}</TextField><span className="unit-arrow" aria-hidden="true">→</span><TextField select label="Vers" value={to} onChange={(event) => { setTo(event.target.value); clearResult(); }}>{category.units.map((unit) => <MenuItem key={unit.id} value={unit.id}>{unit.name} ({unit.symbol})</MenuItem>)}</TextField></div>
+              <div className="unit-selectors"><TextField select label="De" value={from} onChange={(event) => { setFrom(event.target.value); clearResult(); }}>{category.units.map((unit) => <MenuItem key={unit.id} value={unit.id}>{unit.name} ({unit.symbol})</MenuItem>)}</TextField><button type="button" className="swap-button" onClick={swapUnits} aria-label="Inverser les unités" title="Inverser les unités"><Icon name="swap" size={20}/></button><TextField select label="Vers" value={to} onChange={(event) => { setTo(event.target.value); clearResult(); }}>{category.units.map((unit) => <MenuItem key={unit.id} value={unit.id}>{unit.name} ({unit.symbol})</MenuItem>)}</TextField></div>
               {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
               <Button type="submit" variant="contained" size="large" fullWidth disabled={loading} endIcon={loading ? <CircularProgress size={18} color="inherit"/> : <span>→</span>}>{loading ? 'Calcul en cours…' : 'Convertir'}</Button>
             </form>

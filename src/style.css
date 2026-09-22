@@ -24,8 +24,10 @@ h2 { font-size: 20px; font-weight: 650; letter-spacing: -.5px; margin: 0; }
 .category-tab { display: flex; gap: 9px; align-items: center; justify-content: center; flex: 1; border: 0; padding: 11px 8px; background: transparent; border-radius: 9px; color: #64746d; cursor: pointer; font-size: 13px; }
 .category-tab.active { color: #18594b; background: white; box-shadow: 0 1px 5px #15332510; font-weight: 650; }
 .category-tab:focus-visible { outline: 2px solid #18594b; outline-offset: 2px; }
-.unit-selectors { display: grid; grid-template-columns: minmax(0,1fr) 24px minmax(0,1fr); align-items: center; gap: 10px; margin: 27px 0 23px; }
-.unit-arrow { color: #708476; text-align: center; }
+.unit-selectors { display: grid; grid-template-columns: minmax(0,1fr) 40px minmax(0,1fr); align-items: center; gap: 10px; margin: 27px 0 23px; }
+.swap-button { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid #dce2da; background: #f5f7f1; border-radius: 50%; color: #18594b; cursor: pointer; }
+.swap-button:hover { background: #e6eedd; }
+.swap-button:focus-visible { outline: 2px solid #18594b; outline-offset: 3px; }
 .converter .MuiButton-root { min-height: 49px; }
 .result-panel { border-radius: 13px; border: 1px dashed #cddbcc; background: #f3f7ef; padding: 22px 24px; margin-top: 23px; min-height: 168px; display: flex; flex-direction: column; justify-content: center; }
 .result-label { margin: 0 0 13px; font-size: 10px; letter-spacing: 1.6px; font-weight: 750; color: #61775f; }
@@ -57,4 +59,4 @@ footer > span:first-child { font-weight: 650; color: #345043; }
 .footer-muted { margin-left: 9px; color: #708070; font-weight: 400; }
 .loading { min-height: 300px; display: grid; place-items: center; }
 @media (max-width: 850px) { .app-shell { padding: 0 24px; } .workspace { grid-template-columns: 1fr; } .side-panel { display: none; } .header-caption { display: none; } .quick-reference { grid-template-columns: repeat(3,1fr); } .quick-reference > div:first-child { grid-column: 1 / -1; } .reference-item { padding-left: 14px; } }
-@media (max-width: 480px) { .app-shell { padding: 0 16px; } .topbar { min-height: 82px; } main { padding-top: 35px; } h1 { font-size: 43px; } .converter.MuiPaper-root { padding: 23px 18px; } .section-heading h2 { font-size: 17px; } .section-heading .MuiChip-root { display: none; } .unit-selectors { grid-template-columns: 1fr; gap: 16px; } .unit-arrow { display: none; } .quick-reference { gap: 8px; } .reference-item b { font-size: 14px; } .reference-item p { font-size: 11px; } footer { flex-direction: column; gap: 8px; } .header-badge { font-size: 10px; padding: 7px 10px; } }
+@media (max-width: 480px) { .app-shell { padding: 0 16px; } .topbar { min-height: 82px; } main { padding-top: 35px; } h1 { font-size: 43px; } .converter.MuiPaper-root { padding: 23px 18px; } .section-heading h2 { font-size: 17px; } .section-heading .MuiChip-root { display: none; } .unit-selectors { grid-template-columns: 1fr; gap: 12px; } .swap-button { justify-self: center; transform: rotate(90deg); } .quick-reference { gap: 8px; } .reference-item b { font-size: 14px; } .reference-item p { font-size: 11px; } footer { flex-direction: column; gap: 8px; } .header-badge { font-size: 10px; padding: 7px 10px; } }
