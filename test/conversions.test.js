@@ -29,3 +29,15 @@ test('demandes invalides et dépassement numérique refusés', () => {
   assert.throws(() => convert({ value: 1, from: 'unknown', to: 'm' }));
   assert.throws(() => convert({ value: Number.MAX_VALUE, from: 'km', to: 'cm' }));
 });
+test('températures : décalages, valeurs négatives et zéro absolu', () => {
+  const close = (value, from, to, expected) => assert.ok(Math.abs(convert({ value, from, to }).result - expected) < 1e-9);
+  close(0, 'c', 'f', 32);
+  close(100, 'c', 'f', 212);
+  close(-40, 'c', 'f', -40);
+  close(32, 'f', 'c', 0);
+  close(0, 'c', 'k', 273.15);
+  close(0, 'k', 'c', -273.15);
+  assert.equal(convert({ value: -459.67, from: 'f', to: 'k' }).result, 0);
+  for (const [value, from] of [[-273.16, 'c'], [-459.68, 'f'], [-0.01, 'k']]) assert.throws(() => convert({ value, from, to: 'k' }), /zéro absolu/);
+  assert.throws(() => convert({ value: 1, from: 'c', to: 'm' }));
+});

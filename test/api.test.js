@@ -14,6 +14,12 @@ test('API HTTP : catalogue, calcul et erreurs', async (t) => {
   const response = await post(JSON.stringify({ value: 10, from: 'ft', to: 'm' }));
   assert.equal(response.status, 200);
   assert.equal((await response.json()).result, 3.048);
+  const temperature = await post(JSON.stringify({ value: 0, from: 'c', to: 'f' }));
+  assert.equal(temperature.status, 200);
+  assert.equal((await temperature.json()).result, 32);
+  const belowAbsoluteZero = await post(JSON.stringify({ value: -274, from: 'c', to: 'k' }));
+  assert.equal(belowAbsoluteZero.status, 400);
+  assert.match((await belowAbsoluteZero.json()).error, /zéro absolu/);
   assert.equal((await post('{')).status, 400);
   assert.equal((await post('null')).status, 400);
   assert.equal((await post(JSON.stringify({ value: '', from: 'ft', to: 'm' }))).status, 400);

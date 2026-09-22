@@ -31,6 +31,7 @@ Ouvrir http://127.0.0.1:3001. Pour changer ce port en PowerShell : `$env:PORT = 
 
 - Longueurs : mètres, kilomètres, centimètres, pieds, pouces et milles.
 - Volumes : litres, millilitres, gallons américains et gallons impériaux.
+- Températures : Celsius, Fahrenheit et kelvins, avec prise en compte du décalage et rejet des valeurs sous le zéro absolu (laboratoire 3).
 - Saisie décimale avec virgule ou point, résultat et facteur de conversion.
 - Bouton « Inverser les unités » : échange les deux unités et efface le résultat précédent, tout en conservant la valeur saisie (amélioration du laboratoire 2, étape 7).
 - Validation dans le navigateur et sur le serveur ; les erreurs sont affichées en français.
