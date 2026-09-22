@@ -1,0 +1,60 @@
+:root { color-scheme: light; font-synthesis: none; }
+body { margin: 0; }
+button, input { font: inherit; }
+a { color: inherit; }
+.app-shell { max-width: 1240px; margin: 0 auto; padding: 0 48px; }
+.topbar { display: flex; align-items: center; gap: 28px; min-height: 104px; border-bottom: 1px solid #dce2da; }
+.brand { display: inline-flex; align-items: center; text-decoration: none; font-size: 31px; font-weight: 750; letter-spacing: -1.6px; }
+.brand-icon { display: grid; place-items: center; width: 42px; height: 42px; margin-right: 11px; border-radius: 13px; color: white; background: #18594b; }
+.brand-dot { color: #b97736; }
+.header-caption { font-size: 13px; color: #64746d; }
+.header-badge { margin-left: auto; font-size: 12px; border: 1px solid #d9e0d5; border-radius: 24px; padding: 8px 14px; }
+main { padding: 52px 0 0; }
+.intro { margin-bottom: 37px; }
+.eyebrow { margin: 0 0 16px; font-size: 10px; font-weight: 750; letter-spacing: 1.7px; color: #5c7367; }
+h1 { margin: 0; font-size: clamp(40px, 4.5vw, 58px); line-height: 1.08; font-weight: 650; letter-spacing: -2.8px; }
+h1 span { color: #718576; }
+.intro-copy { color: #64746d; font-size: 15px; line-height: 1.8; margin: 22px 0 0; }
+.workspace { display: grid; grid-template-columns: 1.65fr 1fr; gap: 24px; align-items: stretch; }
+.converter.MuiPaper-root { border: 1px solid #dde4db; border-radius: 20px; padding: 30px; }
+.section-heading { display: flex; align-items: center; gap: 16px; justify-content: space-between; margin-bottom: 23px; }
+h2 { font-size: 20px; font-weight: 650; letter-spacing: -.5px; margin: 0; }
+.section-heading .MuiChip-root { font-size: 10px; color: #64746d; }
+.category-tabs { display: flex; gap: 6px; padding: 5px; background: #f2f4ef; border-radius: 12px; margin-bottom: 28px; }
+.category-tab { display: flex; gap: 9px; align-items: center; justify-content: center; flex: 1; border: 0; padding: 11px 8px; background: transparent; border-radius: 9px; color: #64746d; cursor: pointer; font-size: 13px; }
+.category-tab.active { color: #18594b; background: white; box-shadow: 0 1px 5px #15332510; font-weight: 650; }
+.category-tab:focus-visible { outline: 2px solid #18594b; outline-offset: 2px; }
+.unit-selectors { display: grid; grid-template-columns: minmax(0,1fr) 24px minmax(0,1fr); align-items: center; gap: 10px; margin: 27px 0 23px; }
+.unit-arrow { color: #708476; text-align: center; }
+.converter .MuiButton-root { min-height: 49px; }
+.result-panel { border-radius: 13px; border: 1px dashed #cddbcc; background: #f3f7ef; padding: 22px 24px; margin-top: 23px; min-height: 168px; display: flex; flex-direction: column; justify-content: center; }
+.result-label { margin: 0 0 13px; font-size: 10px; letter-spacing: 1.6px; font-weight: 750; color: #61775f; }
+.result-placeholder { margin: 2px 0 6px; font-size: 17px; color: #45664b; }
+.result-hint, .result-origin { margin: 0; font-size: 13px; color: #64746d; }
+.has-result { border-style: solid; }
+.result-number { margin: 4px 0 6px; font-size: clamp(24px, 3vw, 37px); font-weight: 650; color: #18594b; letter-spacing: -1px; overflow-wrap: anywhere; }
+.result-number span { font-size: 22px; font-weight: 400; }
+.result-formula { font-size: 12px; color: #64746d; margin: 0; }
+.side-panel { border-radius: 20px; padding: 34px 30px; background: #e8eedf; display: flex; flex-direction: column; }
+.aside-icon { width: 61px; height: 61px; border: 1px solid #c1cfb4; border-radius: 18px; display: grid; place-items: center; margin-bottom: 40px; color: #526f48; transform: rotate(-7deg); }
+.side-panel .eyebrow { font-size: 9px; }
+.side-panel h2 { font-size: 28px; line-height: 1.2; letter-spacing: -1px; }
+.side-panel > p:not(.eyebrow) { font-size: 14px; color: #63745d; line-height: 1.7; max-width: 245px; }
+.ruler { padding-top: 32px; display: flex; justify-content: space-between; flex-wrap: wrap; color: #778968; font-size: 10px; margin-bottom: 30px; }
+.ruler div { width: 100%; height: 32px; border-bottom: 1px solid #a7b797; background: repeating-linear-gradient(to right, #a7b797 0, #a7b797 1px, transparent 1px, transparent 10%); margin-bottom: 7px; }
+.tip { border-top: 1px solid #cbd6c0; padding-top: 23px; margin-top: auto; }
+.tip-label { font-size: 9px; font-weight: 750; letter-spacing: 1.3px; }
+.tip p { margin: 10px 0 0; font-size: 13px; line-height: 1.75; color: #56674f; }
+.quick-reference { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 20px; padding: 38px 0; margin-top: 16px; align-items: center; }
+.quick-reference .eyebrow { font-size: 8px; margin-bottom: 9px; }
+.quick-reference h2 { font-size: 19px; }
+.reference-item { border-left: 1px solid #dce2da; padding-left: 23px; }
+.reference-item > span { font-size: 9px; color: #708070; letter-spacing: 1px; }
+.reference-item p { font-size: 13px; color: #64746d; margin: 8px 0 0; }
+.reference-item b { display: block; margin-top: 6px; color: #2e4a3c; font-size: 17px; font-weight: 600; }
+footer { border-top: 1px solid #dce2da; padding: 22px 0 28px; display: flex; justify-content: space-between; gap: 20px; font-size: 10px; color: #708070; }
+footer > span:first-child { font-weight: 650; color: #345043; }
+.footer-muted { margin-left: 9px; color: #708070; font-weight: 400; }
+.loading { min-height: 300px; display: grid; place-items: center; }
+@media (max-width: 850px) { .app-shell { padding: 0 24px; } .workspace { grid-template-columns: 1fr; } .side-panel { display: none; } .header-caption { display: none; } .quick-reference { grid-template-columns: repeat(3,1fr); } .quick-reference > div:first-child { grid-column: 1 / -1; } .reference-item { padding-left: 14px; } }
+@media (max-width: 480px) { .app-shell { padding: 0 16px; } .topbar { min-height: 82px; } main { padding-top: 35px; } h1 { font-size: 43px; } .converter.MuiPaper-root { padding: 23px 18px; } .section-heading h2 { font-size: 17px; } .section-heading .MuiChip-root { display: none; } .unit-selectors { grid-template-columns: 1fr; gap: 16px; } .unit-arrow { display: none; } .quick-reference { gap: 8px; } .reference-item b { font-size: 14px; } .reference-item p { font-size: 11px; } footer { flex-direction: column; gap: 8px; } .header-badge { font-size: 10px; padding: 7px 10px; } }
