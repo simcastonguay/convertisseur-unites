@@ -14,6 +14,11 @@ export const categories = [
     { id: 'gal-us', name: 'Gallons américains', symbol: 'gal US', factor: 3.785411784 },
     { id: 'gal-imp', name: 'Gallons impériaux', symbol: 'gal imp', factor: 4.54609 },
   ] },
+  { id: 'temperature', name: 'Température', description: 'De la météo à la cuisine, trouvez vos repères.', units: [
+    { id: 'c', name: 'Celsius', symbol: '°C', factor: 1, offset: 0 },
+    { id: 'f', name: 'Fahrenheit', symbol: '°F', factor: 5 / 9, offset: -160 / 9 },
+    { id: 'k', name: 'Kelvins', symbol: 'K', factor: 1, offset: -273.15 },
+  ] },
 ];
 
 export class ConversionError extends Error {}
@@ -26,7 +31,13 @@ export function convert(input) {
   const source = category?.units.find((unit) => unit.id === from);
   const target = category?.units.find((unit) => unit.id === to);
   if (!source || !target) throw new ConversionError('Choisissez deux unités de la même catégorie.');
-  const result = value * (source.factor / target.factor);
+  const factor = source.factor / target.factor;
+  const offset = ((source.offset || 0) - (target.offset || 0)) / target.factor;
+  const celsius = value * source.factor + (source.offset || 0);
+  if (category.id === 'temperature' && celsius < -273.15 - 1e-10) throw new ConversionError('La température ne peut pas être inférieure au zéro absolu (0 K).');
+  let result = value * factor + offset;
+  // Les limites physiques restent exactes malgré les imprécisions des nombres flottants.
+  if (category.id === 'temperature' && to === 'k' && Math.abs(result) < 1e-10) result = 0;
   if (!Number.isFinite(result)) throw new ConversionError('Le résultat dépasse la capacité du calculateur.');
-  return { value, from, to, result, factor: source.factor / target.factor, category: category.id };
+  return { value, from, to, result, factor, offset, category: category.id };
 }
