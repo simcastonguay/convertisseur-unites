@@ -24,7 +24,7 @@ export function createApp() {
     response.setHeader('X-Content-Type-Options', 'nosniff');
     try {
       const url = new URL(request.url, 'http://localhost');
-      if (request.method === 'GET' && url.pathname === '/api/health') return json(response, 200, { status: 'ok' });
+      if (request.method === 'GET' && url.pathname === '/api/health') return json(response, 200, { status: 'ok', commit: process.env.RENDER_GIT_COMMIT || 'local', uptimeSeconds: Math.round(process.uptime()) });
       if (request.method === 'GET' && url.pathname === '/api/units') return json(response, 200, categories);
       if (request.method === 'POST' && url.pathname === '/api/convert') {
         if (!request.headers['content-type']?.startsWith('application/json')) return json(response, 415, { error: 'Utilisez un contenu JSON.' });
