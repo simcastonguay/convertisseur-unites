@@ -1,4 +1,4 @@
-// Chaque facteur exprime une unité en mètres ou en litres.
+// Chaque facteur exprime une unité en mètres, en litres ou en mètres par seconde.
 export const categories = [
   { id: 'length', name: 'Longueur', description: 'Des petits projets aux grands parcours.', units: [
     { id: 'm', name: 'Mètres', symbol: 'm', factor: 1 },
@@ -18,6 +18,12 @@ export const categories = [
     { id: 'c', name: 'Celsius', symbol: '°C', factor: 1, offset: 0 },
     { id: 'f', name: 'Fahrenheit', symbol: '°F', factor: 5 / 9, offset: -160 / 9 },
     { id: 'k', name: 'Kelvins', symbol: 'K', factor: 1, offset: -273.15 },
+  ] },
+  { id: 'speed', name: 'Vitesse', description: 'Sur la route, sur l’eau ou au pas de course.', units: [
+    { id: 'kmh', name: 'Kilomètres par heure', symbol: 'km/h', factor: 1 / 3.6 },
+    { id: 'mps', name: 'Mètres par seconde', symbol: 'm/s', factor: 1 },
+    { id: 'mph', name: 'Milles par heure', symbol: 'mi/h', factor: 0.44704 },
+    { id: 'kn', name: 'Nœuds', symbol: 'nd', factor: 1852 / 3600 },
   ] },
 ];
 

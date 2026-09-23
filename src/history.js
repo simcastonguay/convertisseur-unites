@@ -1,6 +1,6 @@
 export const HISTORY_KEY = 'unite.history.v1';
 export const HISTORY_LIMIT = 6;
-const unitGroups = { length: ['m', 'km', 'cm', 'ft', 'in', 'mi'], volume: ['l', 'ml', 'gal-us', 'gal-imp'], temperature: ['c', 'f', 'k'] };
+const unitGroups = { length: ['m', 'km', 'cm', 'ft', 'in', 'mi'], volume: ['l', 'ml', 'gal-us', 'gal-imp'], temperature: ['c', 'f', 'k'], speed: ['kmh', 'mps', 'mph', 'kn'] };
 
 export function isHistoryEntry(entry) {
   return Boolean(entry && typeof entry === 'object'
