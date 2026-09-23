@@ -1,0 +1,74 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-cd-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  APP_URL: https://convertisseur-unites.onrender.com
+
+jobs:
+  test:
+    name: Tests et compilation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+  deploy:
+    name: Déploiement sur Render
+    needs: test
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Déclencher le déploiement
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+            echo "::error::Le secret RENDER_DEPLOY_HOOK_URL est absent."
+            exit 1
+          fi
+          curl -fsS -X POST "$RENDER_DEPLOY_HOOK_URL" -o /dev/null
+          echo "Déploiement demandé pour le commit $GITHUB_SHA."
+
+      - name: Attendre la nouvelle version en ligne
+        run: |
+          for attempt in $(seq 1 60); do
+            body=$(curl -fsS --max-time 30 "$APP_URL/api/health" || true)
+            echo "Tentative $attempt : ${body:-aucune réponse}"
+            if echo "$body" | grep -q "\"commit\":\"$GITHUB_SHA\""; then
+              echo "Version $GITHUB_SHA en ligne."
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error::La version $GITHUB_SHA n'est pas en ligne après 15 minutes."
+          exit 1
+
+      - name: Vérifier l'application en ligne
+        run: |
+          result=$(curl -fsS -X POST "$APP_URL/api/convert" -H 'Content-Type: application/json' -d '{"value":10,"from":"ft","to":"m"}')
+          echo "Conversion 10 pi -> m : $result"
+          echo "$result" | grep -q '"result":3.048'
+          status=$(curl -s -o /dev/null -w '%{http_code}' -X POST "$APP_URL/api/convert" -H 'Content-Type: application/json' -d '{"value":"abc","from":"ft","to":"m"}')
+          echo "Saisie invalide : HTTP $status"
+          test "$status" = 400
+          redirect=$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' "${APP_URL/https/http}/")
+          echo "Redirection HTTP : $redirect"
+          case "$redirect" in 30[178]\ https://*) ;; *) exit 1 ;; esac
+          echo "Déploiement réussi et vérifié."
