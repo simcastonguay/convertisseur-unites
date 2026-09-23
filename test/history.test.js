@@ -37,3 +37,8 @@ test('historique : une catégorie héritée ne doit pas effacer les entrées val
     assert.deepEqual(loadHistory({ getItem: () => JSON.stringify(stored) }), [entry]);
   }
 });
+test('historique : les conversions de vitesse sont conservées', () => {
+  const speed = { category: 'speed', value: 36, result: 10, from: 'kmh', to: 'mps', fromSymbol: 'km/h', toSymbol: 'm/s' };
+  assert.deepEqual(appendHistory([], speed), [speed]);
+  assert.deepEqual(appendHistory([], { ...speed, to: 'm' }), []);
+});

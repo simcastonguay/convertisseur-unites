@@ -41,3 +41,14 @@ test('températures : décalages, valeurs négatives et zéro absolu', () => {
   for (const [value, from] of [[-273.16, 'c'], [-459.68, 'f'], [-0.01, 'k']]) assert.throws(() => convert({ value, from, to: 'k' }), /zéro absolu/);
   assert.throws(() => convert({ value: 1, from: 'c', to: 'm' }));
 });
+test('vitesses : km/h, m/s, mi/h et nœuds', () => {
+  const close = (value, from, to, expected) => assert.ok(Math.abs(convert({ value, from, to }).result - expected) < 1e-9, `${value} ${from} -> ${to}`);
+  close(36, 'kmh', 'mps', 10);
+  close(1, 'mps', 'kmh', 3.6);
+  close(60, 'mph', 'kmh', 96.56064);
+  close(1, 'kn', 'kmh', 1.852);
+  close(100, 'kmh', 'mph', 62.1371192237);
+  close(-10, 'mps', 'kmh', -36);
+  assert.equal(convert({ value: 1, from: 'kn', to: 'mps' }).category, 'speed');
+  assert.throws(() => convert({ value: 1, from: 'kmh', to: 'km' }), /même catégorie/);
+});

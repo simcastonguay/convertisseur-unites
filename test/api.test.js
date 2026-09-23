@@ -17,6 +17,10 @@ test('API HTTP : catalogue, calcul et erreurs', async (t) => {
   const temperature = await post(JSON.stringify({ value: 0, from: 'c', to: 'f' }));
   assert.equal(temperature.status, 200);
   assert.equal((await temperature.json()).result, 32);
+  const speed = await post(JSON.stringify({ value: 36, from: 'kmh', to: 'mps' }));
+  assert.equal(speed.status, 200);
+  assert.ok(Math.abs((await speed.json()).result - 10) < 1e-9);
+  assert.ok(units.find((category) => category.id === 'speed'));
   const belowAbsoluteZero = await post(JSON.stringify({ value: -274, from: 'c', to: 'k' }));
   assert.equal(belowAbsoluteZero.status, 400);
   assert.match((await belowAbsoluteZero.json()).error, /zéro absolu/);
