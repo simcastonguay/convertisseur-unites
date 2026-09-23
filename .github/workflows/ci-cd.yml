@@ -37,13 +37,22 @@ jobs:
     steps:
       - name: Déclencher le déploiement
         env:
-          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
         run: |
-          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
-            echo "::error::Le secret RENDER_DEPLOY_HOOK_URL est absent."
+          for name in RENDER_API_KEY RENDER_SERVICE_ID; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Le secret $name est absent."
+              exit 1
+            fi
+          done
+          status=$(curl -sS -o response.json -w '%{http_code}' -X POST             "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys"             -H "Authorization: Bearer $RENDER_API_KEY"             -H 'Accept: application/json' -H 'Content-Type: application/json'             -d "{\"commitId\":\"$GITHUB_SHA\"}")
+          echo "Réponse de Render : HTTP $status"
+          cat response.json; echo
+          if [ "$status" != 201 ] && [ "$status" != 202 ]; then
+            echo "::error::Render a refusé le déploiement (HTTP $status)."
             exit 1
           fi
-          curl -fsS -X POST "$RENDER_DEPLOY_HOOK_URL" -o /dev/null
           echo "Déploiement demandé pour le commit $GITHUB_SHA."
 
       - name: Attendre la nouvelle version en ligne

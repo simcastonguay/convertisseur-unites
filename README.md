@@ -68,7 +68,7 @@ Dans le navigateur : convertir 10 pieds en mètres (3,048 m), 1 gallon US en lit
 
 L'application est hébergée sur Render (plan gratuit, service web Node géré), décrit dans `render.yaml`. Voir `DEPLOIEMENT-RENDER.md`.
 
-Le workflow `.github/workflows/ci-cd.yml` s'exécute à chaque push vers `main` : installation, tests, compilation, déclenchement du déploiement Render par Deploy Hook (secret GitHub `RENDER_DEPLOY_HOOK_URL`), puis vérification en ligne de la version, d'une conversion, d'une erreur de saisie et de la redirection HTTP vers HTTPS. Les pull requests exécutent seulement les tests et la compilation.
+Le workflow `.github/workflows/ci-cd.yml` s'exécute à chaque push vers `main` : installation, tests, compilation, déclenchement du déploiement du commit par l'API Render (secrets GitHub `RENDER_API_KEY` et `RENDER_SERVICE_ID`), puis vérification en ligne de la version, d'une conversion, d'une erreur de saisie et de la redirection HTTP vers HTTPS. Les pull requests exécutent seulement les tests et la compilation.
 
 ## Observabilité
 
