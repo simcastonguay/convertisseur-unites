@@ -13,6 +13,14 @@ function json(response, status, data) {
 
 export function createApp() {
   return createServer(async (request, response) => {
+    const started = performance.now();
+    response.on('finish', () => console.log(JSON.stringify({
+      time: new Date().toISOString(),
+      method: request.method,
+      path: request.url.split('?')[0],
+      status: response.statusCode,
+      durationMs: Math.round(performance.now() - started),
+    })));
     response.setHeader('X-Content-Type-Options', 'nosniff');
     try {
       const url = new URL(request.url, 'http://localhost');
