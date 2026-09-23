@@ -14,9 +14,12 @@ Le déploiement automatique natif de Render est désactivé (`autoDeployTrigger:
 
 Configuration unique :
 
-1. Render : service → **Settings** → **Deploy Hook** → copier l'URL.
-2. GitHub : dépôt → **Settings** → **Secrets and variables** → **Actions** → nouveau secret `RENDER_DEPLOY_HOOK_URL` avec cette URL.
-3. Si le service n'a pas été créé par Blueprint, régler **Auto-Deploy** à **Off** dans les paramètres Render.
+1. Render : avatar → **Account Settings** → **API Keys** → **Create API Key** ; copier la clé.
+2. Render : ouvrir le service ; son identifiant `srv-...` est dans l'URL du tableau de bord.
+3. GitHub : dépôt → **Settings** → **Secrets and variables** → **Actions** → secrets `RENDER_API_KEY` (la clé) et `RENDER_SERVICE_ID` (l'identifiant `srv-...`).
+4. Si le service n'a pas été créé par Blueprint, régler **Auto-Deploy** à **Off** dans les paramètres Render.
+
+Le Deploy Hook de Render a d'abord été utilisé, mais il répondait « Internal Server Error » ; l'API Render déploie le commit exact du push et affiche sa réponse dans les journaux.
 
 Le résultat de chaque déploiement est visible dans l'onglet **Actions** du dépôt : l'étape « Attendre la nouvelle version en ligne » compare le commit retourné par `/api/health` à celui du push.
 
