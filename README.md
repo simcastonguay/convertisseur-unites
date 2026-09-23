@@ -1,6 +1,8 @@
 # Unité — Convertisseur du quotidien
 
-Application du laboratoire 2 : backend Node.js, frontend React et composants Material UI. Créée avec l'assistance de Codex, dans le cadre d'un travail individuel.
+Convertisseur d'unités web (backend Node.js, frontend React et Material UI), réalisé pour les laboratoires 2 et 3 puis déployé pour le projet 1 par Simon Castonguay et Bryan Alvarez-Quintero.
+
+Application en ligne : https://convertisseur-unites.onrender.com/
 
 ## Prérequis et installation
 
@@ -49,7 +51,7 @@ Les valeurs négatives sont acceptées pour les calculs de différences. L'affic
 - `scripts/dev.js` : lancement du backend et de Vite avec une seule commande.
 - `test/` : tests du calcul et de l'API avec le test runner de Node.js.
 
-Routes : `GET /api/health`, `GET /api/units`, `POST /api/convert`.
+Routes : `GET /api/health`, `GET /api/units`, `POST /api/convert`. `/api/health` retourne `status`, le `commit` déployé et `uptimeSeconds`.
 
 Exemple de requête JSON : `{"value": 10, "from": "ft", "to": "m"}`. Le résultat attendu est `3.048`.
 
@@ -62,8 +64,19 @@ npm run build
 
 Dans le navigateur : convertir 10 pieds en mètres (3,048 m), 1 gallon US en litres (3,785411784 L), 1,5 L en mL (1 500 mL), puis vérifier qu'un champ vide et du texte sont refusés. Changer une unité doit effacer l'ancien résultat.
 
+## Déploiement et CI/CD
+
+L'application est hébergée sur Render (plan gratuit, service web Node géré), décrit dans `render.yaml`. Voir `DEPLOIEMENT-RENDER.md`.
+
+Le workflow `.github/workflows/ci-cd.yml` s'exécute à chaque push vers `main` : installation, tests, compilation, déclenchement du déploiement Render par Deploy Hook (secret GitHub `RENDER_DEPLOY_HOOK_URL`), puis vérification en ligne de la version, d'une conversion, d'une erreur de saisie et de la redirection HTTP vers HTTPS. Les pull requests exécutent seulement les tests et la compilation.
+
+## Observabilité
+
+- Santé : `curl https://convertisseur-unites.onrender.com/api/health` doit répondre `{"status":"ok",...}`. Render utilise aussi cette route comme vérification de santé.
+- Journaux : chaque requête produit une ligne JSON (heure, méthode, chemin, statut, durée), visible dans l'onglet **Logs** du service Render.
+
 ## Git et utilisation de l'IA
 
-Le laboratoire 2 sera identifié par le tag `lab2-final`. Les évolutions du laboratoire 3 seront faites dans des branches dédiées. Un seul auteur réel est utilisé ; aucune revue par un deuxième étudiant n'est revendiquée.
+Chaque évolution est faite dans une branche dédiée puis fusionnée dans `main` par pull request. Le laboratoire 2 est identifié par le tag `lab2-final`.
 
-Codex aide à produire et vérifier le code. L'étudiant doit pouvoir expliquer la requête HTTP, la formule de conversion, le rôle des composants React et les commandes Git.
+Codex a aidé à produire le code des laboratoires 2 et 3 ; Claude Code a aidé à produire la catégorie Vitesse et le pipeline GitHub Actions. Les membres de l'équipe doivent pouvoir expliquer la requête HTTP, la formule de conversion, le rôle des composants React, le pipeline et les commandes Git.

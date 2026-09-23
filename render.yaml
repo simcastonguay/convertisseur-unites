@@ -3,6 +3,8 @@ services:
     name: convertisseur-unites
     runtime: node
     plan: free
+    # Le déploiement est déclenché par GitHub Actions (Deploy Hook) après la réussite des tests.
+    autoDeployTrigger: "off"
     buildCommand: npm ci --include=dev && npm run check
     startCommand: npm start
     healthCheckPath: /api/health

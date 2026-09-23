@@ -8,7 +8,12 @@ test('API HTTP : catalogue, calcul et erreurs', async (t) => {
   t.after(() => new Promise((resolve) => server.close(resolve)));
   const base = `http://127.0.0.1:${server.address().port}`;
   const post = (body, contentType = 'application/json') => fetch(`${base}/api/convert`, { method: 'POST', headers: { 'Content-Type': contentType }, body });
-  assert.equal((await fetch(`${base}/api/health`)).status, 200);
+  const health = await fetch(`${base}/api/health`);
+  assert.equal(health.status, 200);
+  const healthBody = await health.json();
+  assert.equal(healthBody.status, 'ok');
+  assert.equal(typeof healthBody.commit, 'string');
+  assert.ok(Number.isInteger(healthBody.uptimeSeconds));
   const units = await (await fetch(`${base}/api/units`)).json();
   assert.ok(units.find((category) => category.id === 'volume'));
   const response = await post(JSON.stringify({ value: 10, from: 'ft', to: 'm' }));
