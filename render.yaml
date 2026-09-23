@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: convertisseur-unites
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run check
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: HOST
+        value: 0.0.0.0
